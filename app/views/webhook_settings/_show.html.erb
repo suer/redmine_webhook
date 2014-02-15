@@ -1,0 +1,12 @@
+<% webhook = Webhook.where(:project_id => @project.id).first || Webhook.new(:project_id => @project.id) %>
+<%= form_tag(update_webhook_settings_path(@project), :method => :put, :class => "tabular") do %>
+<div class="box tabular">
+<p>
+  <label>URL</label>
+  <%= text_field_tag :url, webhook.url, :size => 80 %>
+</p>
+</div>
+
+<%= submit_tag l(:button_save) %>
+<% end %>
+

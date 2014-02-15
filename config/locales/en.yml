@@ -1,3 +1,4 @@
 # English strings go here for Rails i18n
 en:
-  # my_label: "My label"
+  webhook: WebHook
+  notice_fail_to_save_settings: Fail to save
