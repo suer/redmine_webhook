@@ -8,9 +8,9 @@ end
 
 Redmine::Plugin.register :redmine_webhook do
   name 'Redmine Webhook plugin'
-  author 'Author name'
-  description 'This is a plugin for Redmine'
+  author 'suer'
+  description 'A Redmine plugin posts webhook on creating and updating tickets'
   version '0.0.1'
-  url 'http://example.com/path/to/plugin'
-  author_url 'http://example.com/about'
+  url 'https://github.com/suer/redmine_webhook'
+  author_url 'http://d.hatena.ne.jp/suer'
 end
