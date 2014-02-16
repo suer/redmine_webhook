@@ -7,6 +7,15 @@ class RedmineWebhook::WebhookListener < Redmine::Hook::Listener
     post(webhook, issue_create_payload(issue))
   end
 
+  def controller_issues_edit_after_save(context = {})
+    journal = context[:journal]
+    journal.issue = context[:issue]
+    project = journal.issue.project
+    webhook = Webhook.where(:project_id => project.project.id).first
+    return unless webhook
+    post(webhook, journal_create_payload(journal))
+  end
+
   private
   def issue_create_payload(issue)
     {:payload => issue}.to_json(issues_to_json_option)
@@ -22,6 +31,21 @@ class RedmineWebhook::WebhookListener < Redmine::Hook::Listener
         {:author => {:only => [:login, :mail, :firstname, :lastname, :identity_url]}},
         {:assigned_to => {:only => [:login, :mail, :firstname, :lastname, :identity_url]}}
       ]
+    }
+  end
+
+  def journal_create_payload(journal)
+    #{:payload => journal}.to_json(journal_to_json_option)
+    {:payload => journal}.to_json(journal_to_json_option)
+  end
+
+  def journal_to_json_option
+    {
+      :include => {
+        :user => {:only => [:login, :mail, :firstname, :lastname, :identity_url]},
+        :issue => issues_to_json_option,
+        :details => {:only => [:id, :value, :old_value, :prop_key, :property]}
+      }
     }
   end
 
