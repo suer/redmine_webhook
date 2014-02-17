@@ -35,7 +35,6 @@ class RedmineWebhook::WebhookListener < Redmine::Hook::Listener
   end
 
   def journal_create_payload(journal)
-    #{:payload => journal}.to_json(journal_to_json_option)
     {:payload => journal}.to_json(journal_to_json_option)
   end
 
