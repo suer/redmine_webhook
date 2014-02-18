@@ -4,7 +4,7 @@ class RedmineWebhook::WebhookListener < Redmine::Hook::Listener
     project = issue.project
     webhook = Webhook.where(:project_id => project.project.id).first
     return unless webhook
-    post(webhook, RedmineWebhook::IssueWrapper.new(issue).to_json)
+    post(webhook, issue_to_json(issue))
   end
 
   def controller_issues_edit_after_save(context = {})
@@ -17,6 +17,15 @@ class RedmineWebhook::WebhookListener < Redmine::Hook::Listener
   end
 
   private
+  def issue_to_json(issue)
+    {
+      :payload => {
+        :action => 'opened',
+        :issue => RedmineWebhook::IssueWrapper.new(issue).to_hash
+      }
+    }.to_json
+  end
+
   def journal_create_payload(journal)
     {:payload => journal}.to_json(journal_to_json_option)
   end
