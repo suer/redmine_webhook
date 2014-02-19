@@ -19,11 +19,11 @@ class RedmineWebhook::IssueWrapper
       :estimated_hours => @issue.estimated_hours,
       :is_private => @issue.is_private,
       :lock_version => @issue.lock_version,
-      :project => ProjectWrapper.new(@issue.project).to_hash,
-      :status => StatusWrapper.new(@issue.status).to_hash,
-      :tracker => TrackerWrapper.new(@issue.tracker).to_hash,
-      :priority => PriorityWrapper.new(@issue.priority).to_hash,
-      :author => AuthorWrapper.new(@issue.author).to_hash
+      :project => RedmineWebhook::ProjectWrapper.new(@issue.project).to_hash,
+      :status => RedmineWebhook::StatusWrapper.new(@issue.status).to_hash,
+      :tracker => RedmineWebhook::TrackerWrapper.new(@issue.tracker).to_hash,
+      :priority => RedmineWebhook::PriorityWrapper.new(@issue.priority).to_hash,
+      :author => RedmineWebhook::AuthorWrapper.new(@issue.author).to_hash
     }
   end
 end
