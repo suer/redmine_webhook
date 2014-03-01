@@ -1,4 +1,7 @@
 class RedmineWebhook::WebhookListener < Redmine::Hook::Listener
+  include GravatarHelper::PublicMethods
+  include ERB::Util
+
   def controller_issues_new_after_save(context = {})
     issue = context[:issue]
     controller = context[:controller]
@@ -24,7 +27,8 @@ class RedmineWebhook::WebhookListener < Redmine::Hook::Listener
       :payload => {
         :action => 'opened',
         :issue => RedmineWebhook::IssueWrapper.new(issue).to_hash,
-        :url => controller.issue_url(issue)
+        :url => controller.issue_url(issue),
+        :iconUrl => gravatar_url(issue.author.mail)
       }
     }.to_json
   end
@@ -35,7 +39,8 @@ class RedmineWebhook::WebhookListener < Redmine::Hook::Listener
         :action => 'updated',
         :issue => RedmineWebhook::IssueWrapper.new(issue).to_hash,
         :journal => RedmineWebhook::JournalWrapper.new(journal).to_hash,
-        :url => controller.issue_url(issue)
+        :url => controller.issue_url(issue),
+        :iconUrl => gravatar_url(issue.author.mail)
       }
     }.to_json
   end
