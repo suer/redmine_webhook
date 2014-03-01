@@ -28,7 +28,7 @@ class RedmineWebhook::WebhookListener < Redmine::Hook::Listener
         :action => 'opened',
         :issue => RedmineWebhook::IssueWrapper.new(issue).to_hash,
         :url => controller.issue_url(issue),
-        :iconUrl => gravatar_url(issue.author.mail)
+        :icon_url => gravatar_url(issue.author.mail)
       }
     }.to_json
   end
@@ -40,7 +40,7 @@ class RedmineWebhook::WebhookListener < Redmine::Hook::Listener
         :issue => RedmineWebhook::IssueWrapper.new(issue).to_hash,
         :journal => RedmineWebhook::JournalWrapper.new(journal).to_hash,
         :url => controller.issue_url(issue),
-        :iconUrl => gravatar_url(issue.author.mail)
+        :icon_url => gravatar_url(issue.author.mail)
       }
     }.to_json
   end
