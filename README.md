@@ -26,6 +26,7 @@ Post Data Example
       "payload": {
         "issue": {
           "author": {
+            "icon_url": "http://www.gravatar.com/avatar/example",
             "identity_url": null,
             "lastname": "user",
             "firstname": "test",
@@ -69,8 +70,7 @@ Post Data Example
           }
         },
         "action": "opened",
-        "url": "https://example.com",
-        "icon_url": "http://www.gravatar.com/avatar/example"
+        "url": "https://example.com"
       }
     }
 
@@ -78,11 +78,11 @@ Post Data Example
 
     {
       "payload": {
-        "icon_url": "http://www.gravatar.com/avatar/example",
         "url": "https://example.com",
         "journal": {
           "details": [],
           "author": {
+            "icon_url": "http://www.gravatar.com/avatar/example",
             "identity_url": null,
             "lastname": "user",
             "firstname": "test",
@@ -97,6 +97,7 @@ Post Data Example
         },
         "issue": {
           "author": {
+            "icon_url": "http://www.gravatar.com/avatar/example",
             "identity_url": null,
             "lastname": "user",
             "firstname": "test",
