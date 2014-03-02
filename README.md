@@ -17,6 +17,132 @@ Type below commands:
 
 Then, restart your redmine.
 
+Post Data Example
+------------------------------
+
+## Issue opened
+
+    {
+      "payload": {
+        "issue": {
+          "author": {
+            "identity_url": null,
+            "lastname": "user",
+            "firstname": "test",
+            "mail": "test@example.com",
+            "login": "test",
+            "id": 3
+          },
+          "priority": {
+            "name": "normal",
+            "id": 2
+          },
+          "tracker": {
+            "name": "bug",
+            "id": 1
+          },
+          "parent_id": null,
+          "root_id": 191,
+          "closed_on": null,
+          "updated_on": "2014-03-01T15:17:48Z",
+          "created_on": "2014-03-01T15:17:48Z",
+          "description": "I'm having a problem with this.",
+          "subject": "Found a bug",
+          "id": 191,
+          "done_ratio": 0,
+          "start_date": "2014-03-02",
+          "due_date": null,
+          "estimated_hours": null,
+          "is_private": false,
+          "lock_version": 0,
+          "project": {
+            "homepage": "",
+            "created_on": "2013-01-12T11:50:26Z",
+            "description": "",
+            "name": "Test Project",
+            "identifier": "test",
+            "id": 4
+          },
+          "status": {
+            "name": "new",
+            "id": 1
+          }
+        },
+        "action": "opened",
+        "url": "https://example.com",
+        "icon_url": "http://www.gravatar.com/avatar/example"
+      }
+    }
+
+## Issue updated
+
+    {
+      "payload": {
+        "icon_url": "http://www.gravatar.com/avatar/example",
+        "url": "https://example.com",
+        "journal": {
+          "details": [],
+          "author": {
+            "identity_url": null,
+            "lastname": "user",
+            "firstname": "test",
+            "mail": "test@example.com",
+            "login": "test",
+            "id": 3
+          },
+          "private_notes": false,
+          "created_on": "2014-03-01T16:22:46Z",
+          "notes": "Fixed",
+          "id": 195
+        },
+        "issue": {
+          "author": {
+            "identity_url": null,
+            "lastname": "user",
+            "firstname": "test",
+            "mail": "test@example.com",
+            "login": "test",
+            "id": 3
+          },
+          "priority": {
+            "name": "normal",
+            "id": 2
+          },
+          "tracker": {
+            "name": "bug",
+            "id": 1
+          },
+          "parent_id": null,
+          "root_id": 196,
+          "closed_on": null,
+          "updated_on": "2014-03-01T16:22:46Z",
+          "created_on": "2014-03-01T15:44:22Z",
+          "description": "test",
+          "subject": "Found a bug",
+          "id": 196,
+          "done_ratio": 0,
+          "start_date": "2014-03-02",
+          "due_date": null,
+          "estimated_hours": null,
+          "is_private": false,
+          "lock_version": 2,
+          "project": {
+            "homepage": "",
+            "created_on": "2013-01-12T11:50:26Z",
+            "description": "",
+            "name": "Test Project",
+            "identifier": "test",
+            "id": 4
+          },
+          "status": {
+            "name": "normal",
+            "id": 1
+          }
+        },
+        "action": "updated"
+      }
+    }
+
 Requirements
 ------------------------------
 * Redmine 2.4
