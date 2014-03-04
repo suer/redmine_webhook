@@ -20,7 +20,7 @@ Then, restart your redmine.
 Post Data Example
 ------------------------------
 
-## Issue opened
+### Issue opened
 
     {
       "payload": {
@@ -74,7 +74,7 @@ Post Data Example
       }
     }
 
-## Issue updated
+### Issue updated
 
     {
       "payload": {
