@@ -41,20 +41,6 @@ class RedmineWebhook::WebhookListener < Redmine::Hook::Listener
     }.to_json
   end
 
-  def journal_create_payload(journal)
-    {:payload => journal}.to_json(journal_to_json_option)
-  end
-
-  def journal_to_json_option
-    {
-      :include => {
-        :user => {:only => [:login, :mail, :firstname, :lastname, :identity_url]},
-        :issue => issues_to_json_option,
-        :details => {:only => [:id, :value, :old_value, :prop_key, :property]}
-      }
-    }
-  end
-
   def post(webhook, request_body)
     Thread.start do
       begin
