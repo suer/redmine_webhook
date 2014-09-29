@@ -1,4 +1,4 @@
-require 'redmine_webhook'
+require_dependency 'redmine_webhook'
 
 Rails.configuration.to_prepare do
   unless ProjectsHelper.included_modules.include? RedmineWebhook::ProjectsHelperPatch
