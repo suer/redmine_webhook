@@ -34,6 +34,15 @@ Post Data Example
             "login": "test",
             "id": 3
           },
+          "assignee": {
+            "icon_url": "http://www.gravatar.com/avatar/example",
+            "identity_url": null,
+            "lastname": "user",
+            "firstname": "test",
+            "mail": "test@example.com",
+            "login": "test",
+            "id": 3
+          },
           "priority": {
             "name": "normal",
             "id": 2
@@ -82,6 +91,15 @@ Post Data Example
         "journal": {
           "details": [],
           "author": {
+            "icon_url": "http://www.gravatar.com/avatar/example",
+            "identity_url": null,
+            "lastname": "user",
+            "firstname": "test",
+            "mail": "test@example.com",
+            "login": "test",
+            "id": 3
+          },
+          "assignee": {
             "icon_url": "http://www.gravatar.com/avatar/example",
             "identity_url": null,
             "lastname": "user",

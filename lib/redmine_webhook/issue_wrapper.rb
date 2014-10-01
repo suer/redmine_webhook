@@ -23,7 +23,8 @@ class RedmineWebhook::IssueWrapper
       :status => RedmineWebhook::StatusWrapper.new(@issue.status).to_hash,
       :tracker => RedmineWebhook::TrackerWrapper.new(@issue.tracker).to_hash,
       :priority => RedmineWebhook::PriorityWrapper.new(@issue.priority).to_hash,
-      :author => RedmineWebhook::AuthorWrapper.new(@issue.author).to_hash
+      :author => RedmineWebhook::AuthorWrapper.new(@issue.author).to_hash,
+      :assignee => RedmineWebhook::AuthorWrapper.new(@issue.assigned_to).to_hash
     }
   end
 end
