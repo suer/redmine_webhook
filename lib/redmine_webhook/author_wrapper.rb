@@ -7,6 +7,7 @@ class RedmineWebhook::AuthorWrapper
   end
 
   def to_hash
+    return nil unless @author
     {
       :id => @author.id,
       :login => @author.login,
