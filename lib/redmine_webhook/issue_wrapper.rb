@@ -24,7 +24,8 @@ class RedmineWebhook::IssueWrapper
       :tracker => RedmineWebhook::TrackerWrapper.new(@issue.tracker).to_hash,
       :priority => RedmineWebhook::PriorityWrapper.new(@issue.priority).to_hash,
       :author => RedmineWebhook::AuthorWrapper.new(@issue.author).to_hash,
-      :assignee => RedmineWebhook::AuthorWrapper.new(@issue.assigned_to).to_hash
+      :assignee => RedmineWebhook::AuthorWrapper.new(@issue.assigned_to).to_hash,
+      :watchers => @issue.watcher_users.collect{|u| RedmineWebhook::AuthorWrapper.new(u).to_hash}
     }
   end
 end
