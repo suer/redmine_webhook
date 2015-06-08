@@ -164,7 +164,19 @@ Post Data Example
 
 Requirements
 ------------------------------
-* Redmine 2.4
+* Redmine 2.4, 2.6, 3.0
+
+
+Known Limitations
+------------------------------
+
+An update from context menu doesn't call a webhook event.
+It is caused by a lack of functionality hooking in Redmine.
+Please see https://github.com/suer/redmine_webhook/issues/4 for details.
+
+This limitation has been affected on all Redmine versions includes 2.4, 2.6,
+and 3.0. It is not fixed in end of April, 2015.
+
 
 License
 ------------------------------
