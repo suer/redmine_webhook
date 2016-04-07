@@ -1,6 +1,6 @@
 class WebhookSettingsController < ApplicationController
-  before_filter :find_project
-
+  before_filter :find_project, :authorize
+  
   def update
     webhook = Webhook.where(:project_id => @project.id).first_or_create
     webhook.url = params[:url]

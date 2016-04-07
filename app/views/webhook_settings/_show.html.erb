@@ -1,4 +1,8 @@
+
+<% if User.current.allowed_to?( :manage_hook, @project) %>
+
 <% webhook = Webhook.where(:project_id => @project.id).first || Webhook.new(:project_id => @project.id) %>
+
 <%= form_tag(update_webhook_settings_path(@project), :method => :put, :class => "tabular") do %>
 <div class="box tabular">
 <p>
@@ -10,3 +14,4 @@
 <%= submit_tag l(:button_save) %>
 <% end %>
 
+<% end %>
