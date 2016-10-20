@@ -5,9 +5,9 @@ module RedmineWebhook
       issue = context[:issue]
       controller = context[:controller]
       project = issue.project
-      webhook = Webhook.where(:project_id => project.project.id).first
-      return unless webhook
-      post(webhook, issue_to_json(issue, controller))
+      webhooks = Webhook.where(:project_id => project.project.id)
+      return unless webhooks
+      post(webhooks, issue_to_json(issue, controller))
     end
 
     def controller_issues_edit_after_save(context = {})
@@ -15,9 +15,9 @@ module RedmineWebhook
       controller = context[:controller]
       issue = context[:issue]
       project = issue.project
-      webhook = Webhook.where(:project_id => project.project.id).first
-      return unless webhook
-      post(webhook, journal_to_json(issue, journal, controller))
+      webhooks = Webhook.where(:project_id => project.project.id)
+      return unless webhooks
+      post(webhooks, journal_to_json(issue, journal, controller))
     end
 
     private
@@ -42,16 +42,18 @@ module RedmineWebhook
       }.to_json
     end
 
-    def post(webhook, request_body)
+    def post(webhooks, request_body)
       Thread.start do
-        begin
-          Faraday.post do |req|
-            req.url webhook.url
-            req.headers['Content-Type'] = 'application/json'
-            req.body = request_body
+        webhooks.each do |webhook|
+          begin
+            Faraday.post do |req|
+              req.url webhook.url
+              req.headers['Content-Type'] = 'application/json'
+              req.body = request_body
+            end
+          rescue => e
+            Rails.logger.error e
           end
-        rescue => e
-          Rails.logger.error e
         end
       end
     end

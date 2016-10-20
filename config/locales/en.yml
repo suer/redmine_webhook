@@ -1,4 +1,10 @@
 # English strings go here for Rails i18n
 en:
   webhook: WebHook
-  notice_fail_to_save_settings: Fail to save
+  notice_fail_create_webhook: Webhook creation failed.
+  notice_successful_create_webhook: Webhook created successfully.
+  notice_fail_update_webhook: Webhook update failed.
+  notice_successful_update_webhook : Webhook updated successfully.
+  notice_fail_delete_webhook: Webhook delete failed.
+  notice_successful_delete_webhook : Webhook deleted successfully.
+  
