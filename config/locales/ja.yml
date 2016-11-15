@@ -1,3 +1,9 @@
 ja:
   webhook: WebHook
-  notice_fail_to_save_settings: 保存に失敗しました
+  notice_fail_create_webhook: Webhook の作成に失敗しました
+  notice_successful_create_webhook: Webhook の作成に成功しました
+  notice_fail_update_webhook: Webhook の更新に失敗しました
+  notice_successful_update_webhook : Webhook の更新に成功しました
+  notice_fail_delete_webhook: Webhook の削除に失敗しました
+  notice_successful_delete_webhook : Webhook の削除に成功しました
+
