@@ -1,12 +1,30 @@
-<% webhook = Webhook.where(:project_id => @project.id).first || Webhook.new(:project_id => @project.id) %>
-<%= form_tag(update_webhook_settings_path(@project), :method => :put, :class => "tabular") do %>
+
+<% if User.current.allowed_to?( :manage_hook, @project) %>
+<% if Webhook.where(:project_id => @project.id).first%>
 <div class="box tabular">
-<p>
-  <label>URL</label>
+<% Webhook.where(:project_id => @project.id).each do |webhook|%>
+<%= form_tag(update_webhook_path(@project, webhook.id), :method => :put, :class => "tabular") do %>
+<span>
+  <span><strong>URL</strong></span>
   <%= text_field_tag :url, webhook.url, :size => 80 %>
-</p>
+  <%= submit_tag l(:button_update) %>
+</span>
+<% end %>
+<%= link_to "Delete", delete_webhook_path(@project, webhook.id), :class => "icon icon-del", :method => :delete, :confirm => "Are you sure ?" %>
+</br>
+<% end %>
+</div>
+<% end %>
+<%= form_tag(create_webhook_path(@project), :method => :post, :class => "tabular") do %>
+<div class="box tabular">
+<span>
+  <span><strong>URL</strong></span>
+  <%= text_field_tag :url, '', :size => 80 %>
+  <%= submit_tag l(:button_add) %>
+</span>
 </div>
 
-<%= submit_tag l(:button_save) %>
+
 <% end %>
 
+<% end %>
