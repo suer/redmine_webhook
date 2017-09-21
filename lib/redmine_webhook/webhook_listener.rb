@@ -15,7 +15,7 @@ module RedmineWebhook
       controller = context[:controller]
       project = issue.project
       webhooks = Webhook.where(:project_id => project.project.id)
-      webhooks = Webhook.where(:project_id => 0) unless webhooks
+      webhooks = Webhook.where(:project_id => 0) unless webhooks && webhooks.length > 0
       return unless webhooks
       post(webhooks, issue_to_json(issue, controller))
     end
@@ -27,7 +27,7 @@ module RedmineWebhook
       issue = context[:issue]
       project = issue.project
       webhooks = Webhook.where(:project_id => project.project.id)
-      webhooks = Webhook.where(:project_id => 0) unless webhooks      
+      webhooks = Webhook.where(:project_id => 0) unless webhooks && webhooks.length > 0
       return unless webhooks
       post(webhooks, journal_to_json(issue, journal, controller))
     end
