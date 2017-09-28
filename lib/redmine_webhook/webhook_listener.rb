@@ -32,6 +32,17 @@ module RedmineWebhook
       post(webhooks, journal_to_json(issue, journal, controller))
     end
 
+    def controller_issues_bulk_edit_after_save(context = {})
+      return if skip_webhooks(context)
+      journal = context[:journal]
+      controller = context[:controller]
+      issue = context[:issue]
+      project = issue.project
+      webhooks = Webhook.where(:project_id => project.project.id)
+      return unless webhooks
+      post(webhooks, journal_to_json(issue, journal, controller))
+    end
+
     private
     def issue_to_json(issue, controller)
       {
