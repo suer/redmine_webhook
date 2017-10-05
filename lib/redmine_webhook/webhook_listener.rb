@@ -39,8 +39,18 @@ module RedmineWebhook
       issue = context[:issue]
       project = issue.project
       webhooks = Webhook.where(:project_id => project.project.id)
+      webhooks = Webhook.where(:project_id => 0) unless webhooks && webhooks.length > 0
       return unless webhooks
       post(webhooks, journal_to_json(issue, journal, controller))
+    end
+
+    def model_changeset_scan_commit_for_issue_ids_pre_issue_update(context = {})
+      issue = context[:issue]
+      journal = issue.current_journal
+      webhooks = Webhook.where(:project_id => issue.project.project.id)
+      webhooks = Webhook.where(:project_id => 0) unless webhooks && webhooks.length > 0
+      return unless webhooks
+      post(webhooks, journal_to_json(issue, journal, nil))
     end
 
     private
@@ -60,7 +70,7 @@ module RedmineWebhook
           :action => 'updated',
           :issue => RedmineWebhook::IssueWrapper.new(issue).to_hash,
           :journal => RedmineWebhook::JournalWrapper.new(journal).to_hash,
-          :url => controller.issue_url(issue)
+          :url => controller.nil? ? 'not yet implemented' : controller.issue_url(issue)
         }
       }.to_json
     end
