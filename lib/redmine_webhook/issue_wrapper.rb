@@ -17,6 +17,7 @@ module RedmineWebhook
         :done_ratio => @issue.done_ratio,
         :start_date => @issue.start_date,
         :due_date => @issue.due_date,
+        :custom_fields => @issue.custom_fields,
         :estimated_hours => @issue.estimated_hours,
         :is_private => @issue.is_private,
         :lock_version => @issue.lock_version,
