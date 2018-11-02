@@ -10,7 +10,7 @@
   <%= submit_tag l(:button_update) %>
 </span>
 <% end %>
-<%= link_to l(:button_delete), delete_webhook_path(@project, webhook.id), :class => "icon icon-del", :method => :delete, :confirm => l(text_are_you_sure:) %>
+<%= link_to l(:button_delete), delete_webhook_path(@project, webhook.id), :class => "icon icon-del", :method => :delete, :confirm => l(:text_are_you_sure) %>
 </br>
 <% end %>
 </div>
