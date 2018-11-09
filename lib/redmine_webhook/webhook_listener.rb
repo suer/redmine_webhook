@@ -1,7 +1,16 @@
 module RedmineWebhook
   class WebhookListener < Redmine::Hook::Listener
 
+    def skip_webhooks(context)
+      request = context[:request]
+      if request.headers['X-Skip-Webhooks']
+        return true
+      end
+      return false
+    end
+
     def controller_issues_new_after_save(context = {})
+      return if skip_webhooks(context)
       issue = context[:issue]
       controller = context[:controller]
       project = issue.project
@@ -11,6 +20,7 @@ module RedmineWebhook
     end
 
     def controller_issues_edit_after_save(context = {})
+      return if skip_webhooks(context)
       journal = context[:journal]
       controller = context[:controller]
       issue = context[:issue]

@@ -167,6 +167,12 @@ Requirements
 * Redmine 2.4, 2.6, 3.0
 
 
+Skipping webhooks
+------------------------------
+When a webhook triggers a change via REST API, this would trigger another webhook.
+If you need to prevent this, the API request can include the `X-Skip-Webhooks` header, which will prevent webhooks being triggered by that request.
+
+
 Known Limitations
 ------------------------------
 
