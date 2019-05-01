@@ -1,10 +1,4 @@
-require_dependency 'redmine_webhook'
-
-Rails.configuration.to_prepare do
-  unless ProjectsHelper.included_modules.include? RedmineWebhook::ProjectsHelperPatch
-    ProjectsHelper.send(:include, RedmineWebhook::ProjectsHelperPatch)
-  end
-end
+require 'redmine_webhook'
 
 Redmine::Plugin.register :redmine_webhook do
   name 'Redmine Webhook plugin'

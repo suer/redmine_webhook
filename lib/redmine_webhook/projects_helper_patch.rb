@@ -1,14 +1,7 @@
-require_dependency 'projects_helper'
 module RedmineWebhook
   module ProjectsHelperPatch
-    def self.included(base)
-      base.class_eval do
-        alias_method_chain :project_settings_tabs, :webhook
-      end
-    end
-
-    def project_settings_tabs_with_webhook
-      tabs = project_settings_tabs_without_webhook
+    def project_settings_tabs
+      tabs = super
       tabs << {
         :name => 'webhook',
         :controller => 'webhook_settings',
@@ -18,4 +11,6 @@ module RedmineWebhook
       }
     end
   end
+
+  ProjectsHelper.prepend ProjectsHelperPatch
 end
