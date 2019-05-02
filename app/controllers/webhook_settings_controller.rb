@@ -1,5 +1,6 @@
 class WebhookSettingsController < ApplicationController
   before_action :find_project, :authorize
+  accept_api_auth :create, :update, :destroy
 
   def create
     webhook = Webhook.new(:project_id => @project.id)
