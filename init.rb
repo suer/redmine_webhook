@@ -7,5 +7,7 @@ Redmine::Plugin.register :redmine_webhook do
   version '0.0.5'
   url 'https://github.com/suer/redmine_webhook'
   author_url 'http://d.hatena.ne.jp/suer'
-  permission :manage_hook, {:webhook_settings => [:index, :show, :update, :create, :destroy]}, :require => :member
+  project_module :webhooks do
+    permission :manage_hook, {:webhook_settings => [:index, :show, :update, :create, :destroy]}, :require => :member
+  end
 end
