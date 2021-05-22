@@ -1,5 +1,3 @@
-
-<% if User.current.allowed_to?( :manage_hook, @project) %>
 <% if Webhook.where(:project_id => @project.id).first%>
 <div class="box tabular">
 <% Webhook.where(:project_id => @project.id).each do |webhook|%>
@@ -15,6 +13,7 @@
 <% end %>
 </div>
 <% end %>
+
 <%= form_tag(create_webhook_path(@project), :method => :post, :class => "tabular") do %>
 <div class="box tabular">
 <span>
@@ -23,8 +22,4 @@
   <%= submit_tag l(:button_add) %>
 </span>
 </div>
-
-
-<% end %>
-
 <% end %>
