@@ -15,7 +15,7 @@ module RedmineWebhook
         :mail => @author.mail,
         :firstname => @author.firstname,
         :lastname => @author.lastname,
-        :identity_url => @author.identity_url,
+        :identity_url => @author.try(:identity_url),
         :icon_url => icon_url
       }
     end
