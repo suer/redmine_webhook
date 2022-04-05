@@ -1,4 +1,10 @@
-require_dependency File.dirname(__FILE__) + '/lib/redmine_webhook'
+if Rails.try(:autoloaders).try(:zeitwerk_enabled?)
+  Rails.autoloaders.main.push_dir File.dirname(__FILE__) + '/lib/redmine_webhook'
+  RedmineWebhook::ProjectsHelperPatch
+  RedmineWebhook::WebhookListener
+else
+  require "redmine_webhook"
+end
 
 Redmine::Plugin.register :redmine_webhook do
   name 'Redmine Webhook plugin'
