@@ -9,6 +9,7 @@ class WebhookSettingsController < ApplicationController
   def create
     webhook = Webhook.new(:project_id => @project.id)
     webhook.url = params[:url]
+    webhook.secret_key = params[:secret_key]
     if webhook.save
       flash[:notice] = l(:notice_successful_create_webhook)
     else
@@ -20,6 +21,7 @@ class WebhookSettingsController < ApplicationController
     id = params[:webhook_id]
     webhook = Webhook.where(:project_id => @project.id).where(:id => id).first
     webhook.url = params[:url]
+    webhook.secret_key = params[:secret_key]
     if webhook.url.blank? ? webhook.destroy : webhook.save
       flash[:notice] = l(:notice_successful_update_webhook)
     else

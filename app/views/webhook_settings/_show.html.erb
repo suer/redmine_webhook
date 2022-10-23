@@ -5,6 +5,8 @@
 <span>
   <span><strong>URL</strong></span>
   <%= text_field_tag :url, webhook.url, :size => 80 %>
+  <span><strong>Secret key</strong></span>
+  <%= password_field_tag :secret_key, webhook.secret_key, :size => 40 %>
   <%= submit_tag l(:button_update) %>
 </span>
 <% end %>
@@ -19,6 +21,8 @@
 <span>
   <span><strong>URL</strong></span>
   <%= text_field_tag :url, '', :size => 80 %>
+  <span><strong>Secret key</strong></span>
+  <%= password_field_tag :secret_key, '', :size => 40 %>
   <%= submit_tag l(:button_add) %>
 </span>
 </div>
