@@ -31,6 +31,7 @@ module RedmineWebhook
       post(webhooks, journal_to_json(issue, journal, controller))
     end
 
+    # Redmine::IssuesControllerの実装として、↓このhookは動作しないため別途拡張する
     def controller_issues_bulk_edit_after_save(context = {})
       return if skip_webhooks(context)
       journal = context[:journal]
@@ -50,6 +51,29 @@ module RedmineWebhook
       webhooks = Webhook.where(:project_id => 0) unless webhooks && webhooks.length > 0
       return unless webhooks
       post(webhooks, journal_to_json(issue, journal, nil))
+    end
+
+    def extended_after_bulk_save(controller)
+      context = {
+        request: controller.request
+      }
+      return if skip_webhooks(context)
+
+      # 一括処理で失敗が合った場合は@saved_issues, 全て成功した場合は@issuesに値が入る
+      issues = controller.instance_variable_get(:@saved_issues) || controller.instance_variable_get(:@issues)
+      issues.group_by(&:project_id).each do |project_id, issues|
+        webhooks = Webhook.where(project_id: project_id)
+        return if webhooks.blank?
+
+        post_body = {
+          payload: {
+            action: controller.action_name,
+            issue_ids: issues.map(&:id)
+          }
+        }.to_json
+
+        post(webhooks, post_body)
+      end
     end
 
     private
@@ -90,4 +114,8 @@ module RedmineWebhook
       end
     end
   end
+end
+
+IssuesController.after_action do |controller|
+  RedmineWebhook::WebhookListener.instance.extended_after_bulk_save(controller) if controller.action_name == 'bulk_update'
 end
