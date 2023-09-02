@@ -7,4 +7,6 @@ en:
   notice_successful_update_webhook : Webhook updated successfully.
   notice_fail_delete_webhook: Webhook delete failed.
   notice_successful_delete_webhook : Webhook deleted successfully.
+  project_module_webhooks: Webhooks
+  permission_manage_hook: Manage webhook
   
