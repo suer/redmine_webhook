@@ -43,6 +43,36 @@ module RedmineWebhook
       post(webhooks, journal_to_json(issue, journal, controller))
     end
 
+    def controller_timelog_edit_before_destroy(context = {})
+      return if skip_webhooks(context)
+      time_entry = context[:time_entry]
+      project = time_entry.project
+      webhooks = Webhook.where(:project_id => project.project.id)
+      webhooks = Webhook.where(:project_id => 0) unless webhooks && webhooks.length > 0
+      return unless webhooks
+      post(webhooks, timeentry_to_json(time_entry,'destroy'))
+    end
+
+    def controller_timelog_edit_after_save(context = {})
+      return if skip_webhooks(context)
+      time_entry = context[:time_entry]
+      project = time_entry.project
+      webhooks = Webhook.where(:project_id => project.project.id)
+      webhooks = Webhook.where(:project_id => 0) unless webhooks && webhooks.length > 0
+      return unless webhooks
+      post(webhooks, timeentry_to_json(time_entry,'update'))
+    end
+
+    def controller_time_entries_bulk_edit_before_save(context = {})
+      return if skip_webhooks(context)
+      time_entry = context[:time_entry]
+      project = time_entry.project
+      webhooks = Webhook.where(:project_id => project.project.id)
+      webhooks = Webhook.where(:project_id => 0) unless webhooks && webhooks.length > 0
+      return unless webhooks
+      post(webhooks, timeentry_to_json(time_entry,'update'))
+    end
+
     def model_changeset_scan_commit_for_issue_ids_pre_issue_update(context = {})
       issue = context[:issue]
       journal = issue.current_journal
@@ -56,20 +86,38 @@ module RedmineWebhook
     def issue_to_json(issue, controller)
       {
         :payload => {
+          :object => 'issue',
           :action => 'opened',
           :issue => RedmineWebhook::IssueWrapper.new(issue).to_hash,
           :url => controller.issue_url(issue)
         }
       }.to_json
     end
-
+    
     def journal_to_json(issue, journal, controller)
       {
         :payload => {
+          :object => 'issue',
           :action => 'updated',
           :issue => RedmineWebhook::IssueWrapper.new(issue).to_hash,
           :journal => RedmineWebhook::JournalWrapper.new(journal).to_hash,
           :url => controller.nil? ? 'not yet implemented' : controller.issue_url(issue)
+        }
+      }.to_json
+    end
+
+
+    def timeentry_to_json(time_entry, action)
+      {
+        :payload => {
+          :object => 'timeentry',
+          :action => action,
+          :time_entry => time_entry,
+          :custom_field_values => time_entry.custom_field_values.collect { |value| RedmineWebhook::CustomFieldValueWrapper.new(value).to_hash },
+          :issue => RedmineWebhook::IssueWrapper.new(time_entry.issue).to_hash,
+          :activity => time_entry.activity,
+          :user => time_entry.user,
+          :user_timezone => time_entry.user.time_zone
         }
       }.to_json
     end
